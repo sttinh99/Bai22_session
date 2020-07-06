@@ -1,0 +1,40 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "hello-express",
+  "version": "0.0.1",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --inspect server.js"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.2.1",
+    "bcrypt": "^5.0.0",
+    "cloudinary": "^1.22.0",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lowdb": "^1.0.0",
+    "md5": "^2.2.1",
+    "multer": "^1.4.2",
+    "pug": "^2.0.4",
+    "shortid": "^2.2.15"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/hello-express"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ],
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

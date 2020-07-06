@@ -1,0 +1,14 @@
+extends ../layout/common
+block content
+    h1 Login
+    if errors
+        each err in errors
+            .alert.alert-danger=err
+    form(action="/auth/login", method='POST')
+        label(for="email")  Email
+        input#email(name="email",type="email", class="form-control" ,aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm", value=values?values.name:'')
+        br
+        label(for="pass")   Password
+        input#pass(name="pass",type="Password", class="form-control" ,aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm", value=values?values.age:'')
+        br
+        button(class="btn btn-success") Login

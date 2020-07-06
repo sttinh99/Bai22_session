@@ -1,0 +1,9 @@
+extends ../layout/common
+block content      
+      form(action='/users/update', method="post", enctype="multipart/form-data")
+            label Update User
+            input.form-control(name="name",type="text", value=user.name)
+            input.form-control-file(name="avatar",type="file", value=user.avatar)
+            input(name="id",type="text",value=user.id, style="display:none")
+            br
+            button(class="btn btn-info") Update

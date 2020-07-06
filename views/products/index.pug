@@ -1,0 +1,31 @@
+extends ../layout/common
+block content
+    h1 List Products
+    br
+    input(type="text", name='q')
+    span &nbsp 
+    button.btn.btn-primary Search
+    br
+    br
+    .row.row-cols-1.row-cols-md-4
+     each product in products
+        .col.mb-3
+            .card.h-0
+            img.card-img-top(src=product.image alt='...')
+            .card-body
+                h5.card-title(style='font-size:12px')=product.name
+                p.card-text(style='font-size:12px')=product.description
+                a.btn.btn-primary(href='#') Add Product
+    nav(aria-label='...')
+        ul.pagination
+            li.page-item.disabled
+            a.page-link(href="?page"+"="+(listPage[1]-1) tabindex='-1') Previous
+            li.page-item
+            a.page-link(href="?page"+"="+listPage[0])=listPage[0]
+            li.page-item.active
+            a.page-link(href="?page"+"="+listPage[1])=listPage[1]
+                span.sr-only(current)
+            li.page-item
+            a.page-link(href="?page"+"="+listPage[2])=listPage[2]
+            li.page-item
+            a.page-link(href="?page"+"="+(listPage[1]+1)) Next

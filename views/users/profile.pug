@@ -1,0 +1,13 @@
+extends ../layout/common
+block content      
+      form(action='/users/profile', method="post", enctype="multipart/form-data")
+            label Update Profile
+            .form-group
+                input.form-control(name="name",type="text", value=user.name)
+            .form-group
+                input.form-control(name="age",type="text", value=user.age)
+            .form-group
+                input.form-control-file(name="avatar",type="file", value=user.avatar)
+            .form-group
+                input(name="id",type="text",value=user.id, style="display:none")
+            button(class="btn btn-info") Update

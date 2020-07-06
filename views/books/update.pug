@@ -1,0 +1,10 @@
+extends ../layout/common
+block content
+      form(action='/books/update', method="post", enctype="multipart/form-data")
+            label Update Title
+            input.form-control(name="title",type="text", value=book.title)
+            br
+            input.form-control-file(name="avatar",type="file", value=book.coverUrl)
+            input(name="id",type="text",value=book.id, style="display:none")
+            br
+            button(class="btn btn-info") Update

@@ -1,0 +1,19 @@
+extends ../layout/common
+block content
+    h1 Create Trans
+    form(action="/transactions/create", method = "POST")
+        .input-group.mb-3
+            .input-group-prepend
+                label.input-group-text(for='inputGroupSelect01') Book
+            select#book.id(name="idBook", class="custom-select") Book
+                each book in books
+                    option(value=book.id)=book.title
+            span &nbsp
+            .input-group-prepend
+                label.input-group-text(for='inputGroupSelect02') User
+            select#user.name(name="idUser",class="custom-select")
+                each user in users
+                    option(value=user.id)=user.name
+            span &nbsp
+            hr
+            button(class="btn btn-success") Create

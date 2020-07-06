@@ -1,0 +1,63 @@
+extends ../layout/common
+block content
+  style.
+    td{
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    }
+
+  if(checkAdmin.isAdmin === true)
+    h1 listBooks
+    a.btn.btn-success(href="/books/create") New
+    hr
+    style.
+      th,td{
+      border: 1px soild black;
+      text-align:center;
+      }
+      table{
+        width: 500px;
+      }
+    table.table
+          tr
+            th TITLE
+            th Image
+            th DESCRIPTION  
+            th UPDATE
+            th DELETE
+          each book in books   
+            tr
+              td=book.title
+              td
+                img(src=book.coverUrl, alt="", width="40")
+              td=book.description
+              td
+                a.btn.btn-primary(href="/books/"+book.id+"/update") Update
+              td
+                a.btn.btn-danger(href="/books/"+book.id+"/delete") Remove
+  else if(checkAdmin===1)
+    h1 listBooks
+    hr
+    style.
+      th,td{
+      border: 1px soild black;
+      text-align:center;
+      }
+      table{
+        width: 500px;
+      }
+    table.table
+          tr
+            th TITLE
+            th IMAGE
+            th DESCRIPTION  
+            th ADD CARD
+          each book in books   
+            tr
+              td=book.title
+              td
+                img(src=book.coverUrl, alt="", width="40")
+              td=book.description
+              td
+                button.btn.btn-success Add Card

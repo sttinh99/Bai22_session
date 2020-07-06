@@ -1,0 +1,30 @@
+extends ../layout/common
+block content
+
+    h1 Profile
+    a.btn.btn-success(href="/users/profile") Update
+    hr
+    style.
+        span{
+            font-size: 20px;
+            font-family: fantasy
+        }
+        .block{width: 100%;display:flex}
+        .image{width: 25%}
+        img{
+            max-width: 100%;
+            height:auto;
+        }
+        .content{width: 50%}
+    each user in users   
+        .block
+            .image
+                img.mr-5(src=user.avatar width="200px", height="200px")
+            .content
+                span Name:
+                span=user.name
+                br
+                span Age:      
+                span=user.age
+
+        
