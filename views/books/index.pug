@@ -36,7 +36,7 @@ block content
                 a.btn.btn-primary(href="/books/"+book.id+"/update") Update
               td
                 a.btn.btn-danger(href="/books/"+book.id+"/delete") Remove
-  else if(checkAdmin===1)
+  else if(!checkAdmin.isAdmin || checkAdmin===1)
     h1 listBooks
     hr
     style.
@@ -60,4 +60,17 @@ block content
                 img(src=book.coverUrl, alt="", width="40")
               td=book.description
               td
-                button.btn.btn-success Add Card
+                a(href='/cart/add/'+book.id ).btn.btn-success Add Cart
+  nav(aria-label='...')
+      ul.pagination
+          li.page-item.disabled
+          a.page-link(href="?page"+"="+(listPage[1]-1) tabindex='-1') Previous
+          li.page-item
+          a.page-link(href="?page"+"="+listPage[0])=listPage[0]
+          li.page-item.active
+          a.page-link(href="?page"+"="+listPage[1])=listPage[1]
+              span.sr-only(current)
+          li.page-item
+          a.page-link(href="?page"+"="+listPage[2])=listPage[2]
+          li.page-item
+          a.page-link(href="?page"+"="+(listPage[1]+1)) Next

@@ -1,5 +1,5 @@
 const express = require("express");
-var shortid = require("shortid");
+// var shortid = require("shortid");
 var controller = require('../controller/auth.controller');
 
 var loginValidation = require('../validation/login.validation');

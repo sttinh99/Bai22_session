@@ -17,7 +17,8 @@ module.exports.index = function (req,res){
             }
         })
         res.render("./transactions/index", {
-            trans:takeTrans
+            trans:takeTrans,
+            admin:takeUser.isAdmin
         });
     }
     else{
@@ -30,7 +31,8 @@ module.exports.index = function (req,res){
             }
         });
         res.render("./transactions/index", {
-            trans:takeTrans
+            trans:takeTrans,
+            admin:takeUser.isAdmin
         });
     }
 };

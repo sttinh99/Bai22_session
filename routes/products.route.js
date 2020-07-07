@@ -1,11 +1,11 @@
-const express = require("express");
-var db = require('../db');
+// const express = require("express");
+// var db = require('../db');
 
-var controller = require('../controller/products.controller');
+// var controller = require('../controller/products.controller');
 
-var router = express.Router();
+// var router = express.Router();
 
 
-router.get("/", controller.index);
+// router.get("/", controller.index);
 
-module.exports = router
+// module.exports = router

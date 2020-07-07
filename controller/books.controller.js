@@ -11,8 +11,17 @@ module.exports.index = function(req, res) {
   if(!checkAdmin){
     checkAdmin=1;
   }
+  var page = parseInt(req.query.page) || 1; //n
+    var nextPage = page+1;
+    var prePage = page-1;
+    var perPage = 5; //x
+    var start = (page-1)*perPage;
+    var end = (page*perPage);
+    var take = 5;
+    // console.log([prePage,page,nextPage]);
   res.render("./books/index", {
-      books: db.get("books").value(),
+      books: db.get("books").value().slice(start,end),
+      listPage: [prePage,page,nextPage],
       checkAdmin: checkAdmin
     });
   };

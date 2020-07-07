@@ -1,32 +1,63 @@
 extends ../layout/common
 block content
-  h1 Transactions
-  a(href="/transactions/create", class="btn btn-success") New
-  hr
-  style.
-    th,td{
-    border: 1px soild black;
-    text-align:center;
-    }
-    td.text{
-      font-size: 20px;
-      text-transform: uppercase;
-      color: blue;
-      font-weight: bold
-    }
-    table{
-      width: 500px;
-    }
-  table.table
-        tr
-          th Name
-          th Book  
-          th Trạng Thái
-          th Trả Sách
-        each tran in trans   
+  if(admin)
+    h1 Transactions
+    a(href="/transactions/create", class="btn btn-success") New
+    hr
+    style.
+      th,td{
+      border: 1px soild black;
+      text-align:center;
+      }
+      td.text{
+        font-size: 20px;
+        text-transform: uppercase;
+        color: blue;
+        font-weight: bold
+      }
+      table{
+        width: 500px;
+      }
+    table.table
           tr
-            td=tran.user
-            td=tran.book
-            td.text=tran.status
-            td
-              a.btn.btn-danger(href="/transactions/"+tran.id+"/complete") Tra Sach
+            th Name
+            th Book  
+            th Trạng Thái
+            th Trả Sách
+          each tran in trans   
+            tr
+              td=tran.user
+              td=tran.book
+              td.text=tran.status
+              td
+                a.btn.btn-danger(href="/transactions/"+tran.id+"/complete") Tra Sach
+  else
+    h1 Transactions
+    hr
+    style.
+      th,td{
+      border: 1px soild black;
+      text-align:center;
+      }
+      td.text{
+        font-size: 20px;
+        text-transform: uppercase;
+        color: blue;
+        font-weight: bold
+      }
+      table{
+        width: 500px;
+      }
+    table.table
+          tr
+            th Name
+            th Book  
+            th Trạng Thái
+            th Trả Sách
+          each tran in trans   
+            tr
+              td=tran.user
+              td=tran.book
+              td.text=tran.status
+              td
+                a.btn.btn-danger(href="/transactions/"+tran.id+"/complete") Tra Sach

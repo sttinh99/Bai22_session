@@ -23,19 +23,24 @@ var db = require('./db');
 var useRoute = require('./routes/books.route');
 var useRoute1 = require('./routes/users.route');
 var useRoute2 = require('./routes/transactions.route');
-var useRouteProducts = require('./routes/products.route');
+// var useRouteProducts = require('./routes/products.route');
 var useRouteProfile = require('./routes/profile.route');
-
 var useRoute3 = require('./routes/auth.route');
+var useRouteCart = require('./routes/cart.route');
 
 
 var cookieCount = require('./validation/cookiecount.validation');
+
+var sessionMiddleWare = require('./middleware/session.middleware')
 var getPermission = require('./middleware/permission.middleware');
 
 var authMiddleWare = require('./middleware/auth.middleware');
+
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser(process.env.PROCESS_ENV));
+app.use(sessionMiddleWare);
 
 
 app.set("view engine", "pug"); // register the template engine
@@ -52,8 +57,9 @@ app.use("/books",/*cookieCount.cookies,*/useRoute);
 app.use("/users",/*cookieCount.cookies,*/authMiddleWare.requireAuth,useRoute1);
 app.use("/transactions",/*cookieCount.cookies,*/authMiddleWare.requireAuth,useRoute2)
 app.use('/auth',useRoute3);
-app.use('/products',authMiddleWare.requireAuth,useRouteProducts);
+// app.use('/products',useRouteProducts);
 app.use('/profile',authMiddleWare.requireAuth,useRouteProfile)
+app.use('/cart', useRouteCart);
 app.get('/',function(req,res){
   res.render('./index');
 });

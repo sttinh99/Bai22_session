@@ -28,9 +28,9 @@ block content
                 img(src=user.avatarUrl width="48" height="48")
               td=user.age
               td
-                a.btn.btn-ligth(href="/users/"+user.id+"/update") Update
+                a.btn.btn-primary(href="/users/"+user.id+"/update") Update
               td
-                a.btn.btn-ligth(href="/users/"+user.id+"/delete") Remove
+                a.btn.btn-danger(href="/users/"+user.id+"/delete") Remove
   else
     h1 Profile
     a.btn.btn-success(href="/users/profile") Update
