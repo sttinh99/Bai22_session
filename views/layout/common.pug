@@ -14,7 +14,9 @@ html
                 a.nav-item.nav-link(href='/users',id="users") Users
                 a.nav-item.nav-link(href='/books',id="books") Books
                 a.nav-item.nav-link(href='/transactions') Transactions
-                a.nav-item.nav-link(href='#') Cart
+                a.nav-item.nav-link(href='/cart') Cart 
+                    if countSS
+                        span=countSessions
             if user
                 p=user.name          
         .container
