@@ -1,13 +1,17 @@
 const express = require("express");
-var shortid = require("shortid");
+
 var db = require('../db');
 
 var upload = require('../middleware/multer');
+
+var Book = require('../models/books.model');
+var User = require('../models/users.model')
+
 var cloudinary = require('cloudinary');
 require('dotenv').config();
 
-module.exports.index = function(req, res) {
-  var checkAdmin = db.get('users').find({id:req.signedCookies.user}).value();
+module.exports.index = async function(req, res) {
+  var checkAdmin = await User.find({_id:req.signedCookies.user});
   if(!checkAdmin){
     checkAdmin=1;
   }
@@ -19,22 +23,27 @@ module.exports.index = function(req, res) {
     var end = (page*perPage);
     var take = 5;
     // console.log([prePage,page,nextPage]);
-  res.render("./books/index", {
-      books: db.get("books").value().slice(start,end),
-      listPage: [prePage,page,nextPage],
-      checkAdmin: checkAdmin
-    });
+  // res.render("./books/index", {
+  //     books: db.get("books").value().slice(start,end),
+  //     listPage: [prePage,page,nextPage],
+  //     checkAdmin: checkAdmin
+  //   });
+  var books = await Book.find();
+  res.render('./books/index',{
+    books: books.slice(start,end),
+    listPage: [prePage,page,nextPage],
+    checkAdmin: checkAdmin
+  });
   };
 module.exports.getCreate = function(req, res) {
     res.render("./books/create");
   };
 module.exports.postCreate = async function(req, res) {
+  // var books = await Book.find();
   var result = await cloudinary.v2.uploader.upload(req.file.path);
-    req.body.id = shortid.generate();
+    // req.body.id = shortid.generate();
     req.body.coverUrl = result.secure_url;
-    db.get("books")
-      .push(req.body)
-      .write();
+    await Book.create(req.body);
     res.redirect("/books");
   };
 module.exports.getUpdate = function(req,res){
