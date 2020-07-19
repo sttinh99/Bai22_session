@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+var User = require('../models/users.model')
+
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -9,14 +11,16 @@ var cookieParser = require('cookie-parser');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
 
-module.exports.postLogin = function(req,res,next){
+module.exports.postLogin = async function(req,res,next){
     var email = req.body.email;
     var password = req.body.pass;
     //var hasdPass = md5(password);
 
     // var hasdPass = bcrypt.compareSync(password,hash)
     // console.log(hasdPass);
-    var user = db.get('users').find({email: email}).value();
+    // var user = db.get('users').find({email: email}).value();
+    var user = await User.findOne({email: email})
+    console.log(user._id)
     var countError;
     if(!user){
         res.render('auth/login',{errors:["user doesn't exists"]});
@@ -42,7 +46,7 @@ module.exports.postLogin = function(req,res,next){
         res.render('auth/login',{errors:["Wrong password!!!"]});
         return;
     }
-    res.cookie("user",user.id,{
+    res.cookie("user",user._id,{
         signed: true
     });
     res.redirect("/users");

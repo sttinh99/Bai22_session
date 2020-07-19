@@ -18,8 +18,9 @@ const app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var db = require('./db');
-
-
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true }).then(() => console.log("Connected to MongoDB..."))
+.catch((err) => console.error(`Connection failed...`));
 var useRoute = require('./routes/books.route');
 var useRoute1 = require('./routes/users.route');
 var useRoute2 = require('./routes/transactions.route');
