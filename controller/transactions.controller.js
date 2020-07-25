@@ -1,6 +1,6 @@
 const express = require("express");
-var shortid = require("shortid");
-var db = require('../db');
+// var shortid = require("shortid");
+// var db = require('../db');
 
 var User = require('../models/users.model')
 var Tran = require('../models/trans.model');
