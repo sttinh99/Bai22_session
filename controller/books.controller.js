@@ -1,7 +1,5 @@
 const express = require("express");
 
-var db = require('../db');
-
 var upload = require('../middleware/multer');
 
 var Book = require('../models/books.model');
@@ -12,9 +10,8 @@ require('dotenv').config();
 
 module.exports.index = async function(req, res) {
   var checkAdmin = await User.findOne({_id:req.signedCookies.user});
-  console.log(checkAdmin)
-  if(!checkAdmin.isAdmin){
-    checkAdmin.isAdmin=1;
+  if(!checkAdmin){
+    checkAdmin=1;
   }
   var page = parseInt(req.query.page) || 1; //n
     var nextPage = page+1;
