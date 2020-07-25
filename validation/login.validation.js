@@ -20,7 +20,6 @@ module.exports.postLogin = async function(req,res,next){
     // console.log(hasdPass);
     // var user = db.get('users').find({email: email}).value();
     var user = await User.findOne({email: email})
-    console.log(user._id)
     var countError;
     if(!user){
         res.render('auth/login',{errors:["user doesn't exists"]});

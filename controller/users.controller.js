@@ -3,7 +3,7 @@ const express = require("express");
 
 var User = require('../models/users.model')
 
-var db = require('../db');
+// var db = require('../db');
 
 var upload = require('../middleware/multer');
 var cloudinary = require('cloudinary');
