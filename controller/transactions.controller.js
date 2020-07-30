@@ -23,8 +23,7 @@ module.exports.index = async function (req,res){
                 user: takeUser.name,
                 book: takeBook.title,
                 status: item.isComplete,
-                id: item._id,
-                status: item.isComplete
+                id: item._id
             }
         });
         Promise.all(takeTrans).then(function(values){
