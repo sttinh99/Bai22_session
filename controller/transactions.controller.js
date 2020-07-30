@@ -1,6 +1,6 @@
 const express = require("express");
-var shortid = require("shortid");
-var db = require('../db');
+// var shortid = require("shortid");
+// var db = require('../db');
 
 var User = require('../models/users.model')
 var Tran = require('../models/trans.model');
@@ -23,8 +23,7 @@ module.exports.index = async function (req,res){
                 user: takeUser.name,
                 book: takeBook.title,
                 status: item.isComplete,
-                id: item._id,
-                status: item.isComplete
+                id: item._id
             }
         });
         Promise.all(takeTrans).then(function(values){
