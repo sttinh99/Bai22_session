@@ -113,4 +113,5 @@ module.exports.transBook =async function(req,res,next){
             admin:takeUser.isAdmin
         });
     })
+    res.redirect('/transactions');
 }
