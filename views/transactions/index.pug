@@ -30,7 +30,7 @@ block content
               td=tran.book
               td.text=tran.status
               td
-                a.btn.btn-danger(href="/transactions/"+tran.id+"/complete") Tra Sach
+                a.btn.btn-danger(href="/transactions/"+tran._id+"/complete") Tra Sach
   else
     h1 Transactions
     hr
@@ -60,4 +60,4 @@ block content
               td=tran.book
               td.text=tran.status
               td
-                a.btn.btn-danger(href="/transactions/"+tran.id+"/complete") Tra Sach
+                a.btn.btn-danger(href="/transactions/"+ tran._id +"/complete") Tra Sach

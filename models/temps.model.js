@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var tempSchema = new mongoose.Schema({
     title: String,
     description: String,
-    id: String,
     coverUrl: String,
     sl: Number
 })
