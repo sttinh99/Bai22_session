@@ -4,8 +4,6 @@ var shortid = require("shortid");
 const Book = require("../models/books.model");
 var Session = require('../models/sessions.model');
 var Temp = require('../models/temps.model');
-
-const { count } = require("../models/sessions.model");
 const User = require("../models/users.model");
 const Tran = require("../models/trans.model");
 
@@ -27,18 +25,20 @@ module.exports.addToCart = async function(req,res,next){
     // .set('cart.' + bookId,count+1).write();
     var dbSession = await Session.findOne({id:sessionId});
     console.log("dbSessions",dbSession);
-    var count;
-    if(!dbSession.cart){
+    var count=0;
+    var takeCart = dbSession.cart;
+    if(!takeCart || takeCart == {}){
         count = 0;
     }
     else{
-        var takeCart = dbSession.cart;
         for(var key in takeCart){
-            if(key===bookId){
+            if(key!==bookId){
+                count = 0
+            }
+            else{
                 count =  takeCart[key];
                 break;
             }
-            count = 0
         }
     }
     var x = await (await Session.findOne({id: sessionId})).set('cart.'+bookId,count+1);
@@ -46,6 +46,7 @@ module.exports.addToCart = async function(req,res,next){
     res.redirect('/books');
     // console.log(x);
     //var count = await Session.findOne({id:sessionId});
+    next();
 }
 module.exports.cart = async function(req,res,next){
     var id = req.signedCookies.user;
@@ -70,8 +71,9 @@ module.exports.cart = async function(req,res,next){
     // db.get('sessions')
     // .remove({id:sessionsId})
     // .write()
-    await (await Session.findOneAndDelete({id:sessionsId})).save();
+    await (await Session.findOneAndUpdate({id:sessionsId},{cart: {}})).save();
     res.render('./cart/index',{books: books});
+    next();
 }
 module.exports.transBook =async function(req,res,next){
     var bookId = req.params.bookId;
@@ -79,14 +81,15 @@ module.exports.transBook =async function(req,res,next){
     var aTrans = {
         idBook:bookId, 
         idUser:req.signedCookies.user,
-        id:shortid.generate(),
-        isComplete: false
+        isComplete: false,
     }
     await Tran.insertMany(aTrans);
     // var takeUser = db.get('users').find({id:req.signedCookies.user}).value();
     // var userTrans=db.get("trans").value();
     var takeUser = await User.findOne({_id:req.signedCookies.user})
+    console.log(takeUser)
     var userTrans = await Tran.find();
+    console.log(userTrans);
     var filTrans = userTrans.filter(function(x){
         return x.idUser===req.signedCookies.user;
     })
@@ -95,15 +98,15 @@ module.exports.transBook =async function(req,res,next){
         var takeUser = await User.findOne({_id: item.idUser});
         return{
             user: takeUser.name,
-                book: takeBook.title,
-                status: item.isComplete,
-                id: item._id
+            book: takeBook.title,
+            status: item.isComplete,
+            id: item._id
         }
     })
     // db.get('temps')
     // .remove({id:bookId})
     // .write()
-    await (await Temp.findOneAndDelete({id:bookId})).save();
+    await Temp.findOneAndDelete({_id:bookId});
     Promise.all(takeTrans).then(function(values){
         res.render("./transactions/index", {
             trans:values,

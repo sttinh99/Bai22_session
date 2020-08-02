@@ -14,8 +14,8 @@ module.exports.index = async function (req,res){
             return x.idUser===req.signedCookies.user;
         })
         var takeTrans = filTrans.map( async function(item){
-            var takeBook = await Book.findOne({_id: item.idBook});
-            var takeUser = await User.findOne({_id: item.idUser});
+            var takeBook = await Book.findOne({_id: item.idBook}) || null;
+            var takeUser = await User.findOne({_id: item.idUser}) || null;
             return{
                 // user : db.get("users").find({id: item.idUser}).value().name,
                 // book : db.get("books").find({id: item.idBook}).value().title,
@@ -23,10 +23,11 @@ module.exports.index = async function (req,res){
                 user: takeUser.name,
                 book: takeBook.title,
                 status: item.isComplete,
-                id: item._id
+                _id: item._id
             }
         });
         Promise.all(takeTrans).then(function(values){
+            console.log(values);
             res.render("./transactions/index", {
                 trans:values,
                 admin:takeUser.isAdmin
@@ -40,11 +41,12 @@ module.exports.index = async function (req,res){
             return {
                 user: takeUser.name,
                 book: takeBook.title,
-                id: item._id,
-                status: item.isComplete
+                status: item.isComplete,
+                id: item._id
             }
         });
         Promise.all(takeTrans).then(function(values){
+            console.log(values)
             res.render("./transactions/index", {
                 trans:values,
                 admin:takeUser.isAdmin
