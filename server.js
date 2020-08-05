@@ -17,7 +17,9 @@ const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
-var db = require('./db');
+
+// var db = require('./db');
+
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true }).then(() => console.log("Connected to MongoDB..."))
 .catch((err) => console.error(`Connection failed...`));
@@ -29,7 +31,6 @@ var useRouteProfile = require('./routes/profile.route');
 var useRoute3 = require('./routes/auth.route');
 var useRouteCart = require('./routes/cart.route');
 
-
 var cookieCount = require('./validation/cookiecount.validation');
 
 var sessionMiddleWare = require('./middleware/session.middleware')
@@ -37,11 +38,17 @@ var getPermission = require('./middleware/permission.middleware');
 
 var authMiddleWare = require('./middleware/auth.middleware');
 
+var apiBookRoute = require('./api/routes/book.route')
+var apiLoginRoute = require('./api/routes/auth.route')
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+app.use('/api/postLogin',apiLoginRoute);
+
 app.use(cookieParser(process.env.PROCESS_ENV));
 app.use(sessionMiddleWare);
+
 
 
 app.set("view engine", "pug"); // register the template engine
@@ -64,11 +71,13 @@ app.use('/cart', useRouteCart);
 app.get('/',function(req,res){
   res.render('./index');
 });
+
+app.use('/api/books', apiBookRoute);
 // app.get("/",function(req,res,next){
 //   res.render('./index');
 // });
 // https://expressjs.com/en/starter/basic-routing.html
 // listen for requests :)
-const listener = app.listen(3000, () => {
-  console.log("Your app is listening on port " +3000);
+const listener = app.listen(process.env.PORT, () => {
+  console.log("Your app is listening on port " + process.env.PORT);
 });
