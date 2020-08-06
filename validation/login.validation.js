@@ -33,7 +33,7 @@ module.exports.postLogin = async function(req,res,next){
         if(countError>=3){
             const msg = {
                 to: user.email,
-                from: '17110381@student.hcmute.edu.vn',
+                from: process.env.MAIL,
                 subject: 'Sending with Twilio SendGrid is Fun',
                 text: 'and easy to do anywhere, even with Node.js',
                 html: 'mat khau cua ban la: <strong>123123</strong>',
