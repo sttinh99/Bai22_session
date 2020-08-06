@@ -22,7 +22,8 @@
     "mongoose": "^5.9.25",
     "multer": "^1.4.2",
     "pug": "^2.0.4",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "nodemon": "^2.0.4"
   },
   "engines": {
     "node": "12.x"
@@ -35,8 +36,5 @@
     "node",
     "glitch",
     "express"
-  ],
-  "devDependencies": {
-    "nodemon": "^2.0.4"
-  }
+  ]
 }
