@@ -20,17 +20,15 @@ module.exports.postLogin = async function(req,res,next){
     // console.log(hasdPass);
     // var user = db.get('users').find({email: email}).value();
     var user = await User.findOne({email: email})
-    var countError;
     if(!user){
         res.render('auth/login',{errors:["user doesn't exists"]});
-        countError++;
         return;
     }
     var hasdPass = bcrypt.compareSync(password,user.pass); 
     if(!hasdPass){
-        countError = ++user.wrongLoginCount;
+        await User.findOneAndUpdate({email:email},{wrongLoginCount:user.wrongLoginCount+1});
         // console.log(countError);
-        if(countError>=3){
+        if(user.wrongLoginCount>=3){
             const msg = {
                 to: user.email,
                 from: process.env.MAIL,
@@ -39,6 +37,8 @@ module.exports.postLogin = async function(req,res,next){
                 html: 'mat khau cua ban la: <strong>123123</strong>',
             };
             sgMail.send(msg);
+            user.wrongLoginCount = 0;
+            await user.save();
             res.render('auth/login',{errors:["Mat khau da duoc gui ve email "]});
             return;
         }

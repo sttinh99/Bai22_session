@@ -32,6 +32,7 @@ module.exports.getCreate = function(req, res) {
 module.exports.postCreate = async function(req, res) {
     var result = await cloudinary.v2.uploader.upload(req.file.path);
     req.body.avatarUrl = result.secure_url;
+    req.body.wrongLoginCount = 0;
     await User.create(req.body);
     res.redirect("/users");
   }
