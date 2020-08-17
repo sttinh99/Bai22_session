@@ -30,6 +30,7 @@ var useRoute2 = require('./routes/transactions.route');
 var useRouteProfile = require('./routes/profile.route');
 var useRoute3 = require('./routes/auth.route');
 var useRouteCart = require('./routes/cart.route');
+var useRegister = require('./routes/register.route');
 
 var cookieCount = require('./validation/cookiecount.validation');
 
@@ -68,6 +69,7 @@ app.use('/auth',useRoute3);
 // app.use('/products',useRouteProducts);
 app.use('/profile',authMiddleWare.requireAuth,useRouteProfile)
 app.use('/cart', useRouteCart);
+app.use('/register',useRegister);
 app.get('/',function(req,res){
   res.render('./index');
 });
