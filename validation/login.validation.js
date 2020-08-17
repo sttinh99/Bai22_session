@@ -32,7 +32,7 @@ module.exports.postLogin = async function(req,res,next){
             const msg = {
                 to: user.email,
                 from: process.env.MAIL,
-                subject: 'Sending with Twilio SendGrid is Fun',
+                subject: 'Password for You',
                 text: 'and easy to do anywhere, even with Node.js',
                 html: 'mat khau cua ban la: <strong>123123</strong>',
             };
