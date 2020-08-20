@@ -1,14 +1,19 @@
 const express = require("express");
 
+var multer  = require('multer');
+require('../server/cloudinary');
+require('dotenv').config();
+
+var upload = require('../middleware/multer')
+
 var authMiddleWare = require('../middleware/auth.middleware');
 
 var controller = require('../controller/register.controller');
-const { route } = require("../api/routes/book.route");
 //var validation = require('../validation/a.validation');
 
 var router = express.Router(); 
 
-router.get('/',controller.register);
-router.get('/create',controller.postRegister)
+router.get('/register',controller.register);
+router.post('/register',upload.single('avatar'),controller.postRegister)
 
 module.exports = router;
